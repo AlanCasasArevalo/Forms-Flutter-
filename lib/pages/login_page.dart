@@ -8,6 +8,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String _email = '', _password = '';
+  bool _isValidEmail = false, _isValidPassword = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,6 +19,9 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.all(16),
           children: [
             TextField(
+              onChanged: (emailChanged) {
+                _email = emailChanged;
+              },
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(label: Text('Email')),
             ),
@@ -23,6 +29,9 @@ class _LoginPageState extends State<LoginPage> {
               height: 24,
             ),
             TextField(
+              onChanged: (passwordChanged) {
+                _password = passwordChanged;
+              },
               obscureText: true,
               decoration: InputDecoration(label: Text('Contraseña')),
             ),
@@ -30,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
               height: 24,
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _isValidEmail && _isValidPassword ? () {} : null,
               child: Text('Registrate'),
             ),
           ],
