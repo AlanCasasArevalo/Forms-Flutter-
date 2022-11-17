@@ -10,14 +10,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String _email = '', _password = '';
 
-  // Al usar este globalKey de tipo FormState podemos acceder a los datos de dicho state, por ejemplo validar los campos dentro de los TextFormField
-  final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Form(
-      // Si no asignasemos el key no se realizarian las validaciones
-      key: _formKey,
       child: Scaffold(
         body: SafeArea(
           child: ListView(
@@ -66,10 +61,17 @@ class _LoginPageState extends State<LoginPage> {
               SizedBox(
                 height: 24,
               ),
-              ElevatedButton(
-                key: Key('login-page-Registrate-Button'),
-                onPressed: _submit,
-                child: Text('Registrate'),
+              // Hay que pasar el contexto del FormState para que funcione
+              Builder(
+                builder: (context) {
+                  return ElevatedButton(
+                    key: Key('login-page-Registrate-Button'),
+                    onPressed: () {
+                      _submit(context);
+                    },
+                    child: Text('Registrate'),
+                  );
+                }
               ),
             ],
           ),
@@ -78,17 +80,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Accedemos a los metodos de FormState para validar todas las reglas definidas para validar si es o no un email valido o bien password en cada uno de los
-  // textfields creados
-  void _submit() {
-    if (_formKey.currentState != null) {
-      // Esto sirve para resetear los estados de los textfields
-      _formKey.currentState!.reset();
-      /*
-      if (_formKey.currentState!.validate()) {
-        // Enviar datos al back de los campos validados previamente
-      }
-       */
+  void _submit(BuildContext context) {
+    // Otra forma de hacer que funcione y accedamos a las funciones de formstate es usando el contexto, pero debemos tener cuidado de usar el contexto adecuado
+    // Debemos usar un Builder para recibir el contexto adecuado
+    final formState = context.findAncestorStateOfType<FormState>();
+    if (formState?.validate() ?? false) {
+      print('Llamar al back con los datos ya validados');
     }
   }
 }
