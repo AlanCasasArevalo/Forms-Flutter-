@@ -78,6 +78,10 @@ class _LoginPageState extends State<LoginPage> {
   // Accedemos a los metodos de FormState para validar todas las reglas definidas para validar si es o no un email valido o bien password en cada uno de los
   // textfields creados
   void _submit() {
-    _formKey.currentState?.validate();
+    if(_formKey.currentState != null ) {
+      if (_formKey.currentState!.validate()) {
+        // Enviar datos al back de los campos validados previamente
+      }
+    }
   }
 }
