@@ -25,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextFormField(
                 key: Key('login-page-email'),
+                // Un valor por defecto para dar mas feedback al usuario final
+                initialValue: 'test@test.com',
                 onChanged: (emailChanged) {
                   _email = emailChanged.trim();
                 },
