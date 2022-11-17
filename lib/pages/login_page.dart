@@ -9,6 +9,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String _email = '', _password = '';
+
   // Al usar este globalKey de tipo FormState podemos acceder a los datos de dicho state, por ejemplo validar los campos dentro de los TextFormField
   final _formKey = GlobalKey<FormState>();
 
@@ -32,9 +33,9 @@ class _LoginPageState extends State<LoginPage> {
                 validator: (text) {
                   text ??= '';
                   final isEmailValid = RegExp(
-                      r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+                          r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
                       .hasMatch(text);
-                  if(isEmailValid) {
+                  if (isEmailValid) {
                     return null;
                   } else {
                     return 'Email invalido';
@@ -53,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                 decoration: InputDecoration(label: Text('Contraseña')),
                 validator: (text) {
                   text ??= '';
-                  if(text.length > 7) {
+                  if (text.length > 7) {
                     return null;
                   } else {
                     return 'Contraseña invalida';
@@ -78,10 +79,14 @@ class _LoginPageState extends State<LoginPage> {
   // Accedemos a los metodos de FormState para validar todas las reglas definidas para validar si es o no un email valido o bien password en cada uno de los
   // textfields creados
   void _submit() {
-    if(_formKey.currentState != null ) {
+    if (_formKey.currentState != null) {
+      // Esto sirve para resetear los estados de los textfields
+      _formKey.currentState!.reset();
+      /*
       if (_formKey.currentState!.validate()) {
         // Enviar datos al back de los campos validados previamente
       }
+       */
     }
   }
 }
