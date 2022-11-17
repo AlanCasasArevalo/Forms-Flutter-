@@ -31,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               key: Key('login-page-email'),
               onChanged: (emailChanged) {
-                _email = emailChanged;
+                _email = emailChanged.trim();
               },
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(label: Text('Email')),
@@ -43,7 +43,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               key: Key('login-page-password'),
               onChanged: (passwordChanged) {
-                _password = passwordChanged;
+                _password = passwordChanged.replaceAll(' ', '');
               },
               obscureText: true,
               decoration: InputDecoration(label: Text('Contraseña')),
