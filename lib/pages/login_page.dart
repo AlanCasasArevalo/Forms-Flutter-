@@ -83,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
   void _submit(BuildContext context) {
     // Otra forma de hacer que funcione y accedamos a las funciones de formstate es usando el contexto, pero debemos tener cuidado de usar el contexto adecuado
     // Debemos usar un Builder para recibir el contexto adecuado
-    final formState = context.findAncestorStateOfType<FormState>();
+    final formState = Form.of(context);
     if (formState?.validate() ?? false) {
       print('Llamar al back con los datos ya validados');
     }
