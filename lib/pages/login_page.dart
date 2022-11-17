@@ -20,6 +20,9 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextFormField(
                 key: Key('login-page-email'),
+                // Con este metodo lo que hacemos es que cada vez que el usuario no pase las validaciones puestas en el validator,
+                // y las corrija se muestre u oculte el mensaje de error del textfield, pero solo cuando el usuario interacture con el textfield
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 // Un valor por defecto para dar mas feedback al usuario final
                 initialValue: 'test@test.com',
                 onChanged: (emailChanged) {
@@ -44,6 +47,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               TextFormField(
                 key: Key('login-page-password'),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 onChanged: (passwordChanged) {
                   _password = passwordChanged.replaceAll(' ', '');
                 },
