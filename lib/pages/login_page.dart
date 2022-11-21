@@ -10,8 +10,32 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   String _email = '', _password = '';
 
+  String? _emailValidator(String? email) {
+    email ??= '';
+    final isEmailValid = RegExp(
+            r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+        .hasMatch(email);
+    if (isEmailValid) {
+      return null;
+    } else {
+      return 'Email invalido';
+    }
+  }
+
+  String? _passwordValidator(password) {
+    password ??= '';
+    if (password.length > 7) {
+      return null;
+    } else {
+      return 'Contraseña invalida';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
+    bool allowSubmit = _emailValidator(_email) == null &&  _passwordValidator(_password) == null;
+
     return Form(
       child: Scaffold(
         body: SafeArea(
@@ -26,21 +50,13 @@ class _LoginPageState extends State<LoginPage> {
                 // Un valor por defecto para dar mas feedback al usuario final
                 initialValue: 'test@test.com',
                 onChanged: (emailChanged) {
-                  _email = emailChanged.trim();
+                  setState(() {
+                    _email = emailChanged.trim();
+                  });
                 },
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(label: Text('Email')),
-                validator: (text) {
-                  text ??= '';
-                  final isEmailValid = RegExp(
-                          r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-                      .hasMatch(text);
-                  if (isEmailValid) {
-                    return null;
-                  } else {
-                    return 'Email invalido';
-                  }
-                },
+                validator: _emailValidator,
               ),
               SizedBox(
                 height: 24,
@@ -49,34 +65,22 @@ class _LoginPageState extends State<LoginPage> {
                 key: Key('login-page-password'),
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 onChanged: (passwordChanged) {
-                  _password = passwordChanged.replaceAll(' ', '');
+                  setState(() {
+                    _password = passwordChanged.replaceAll(' ', '');
+                  });
                 },
                 obscureText: true,
                 decoration: InputDecoration(label: Text('Contraseña')),
-                validator: (text) {
-                  text ??= '';
-                  if (text.length > 7) {
-                    return null;
-                  } else {
-                    return 'Contraseña invalida';
-                  }
-                },
+                validator: _passwordValidator,
               ),
               SizedBox(
                 height: 24,
               ),
-              // Hay que pasar el contexto del FormState para que funcione
-              Builder(
-                builder: (context) {
-                  return ElevatedButton(
-                    key: Key('login-page-Registrate-Button'),
-                    onPressed: () {
-                      _submit(context);
-                    },
-                    child: Text('Registrate'),
-                  );
-                }
-              ),
+              ElevatedButton(
+                key: Key('login-page-Registrate-Button'),
+                onPressed: allowSubmit ? _submit : null,
+                child: Text('Registrate'),
+              )
             ],
           ),
         ),
@@ -84,12 +88,5 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void _submit(BuildContext context) {
-    // Otra forma de hacer que funcione y accedamos a las funciones de formstate es usando el contexto, pero debemos tener cuidado de usar el contexto adecuado
-    // Debemos usar un Builder para recibir el contexto adecuado
-    final formState = Form.of(context);
-    if (formState?.validate() ?? false) {
-      print('Llamar al back con los datos ya validados');
-    }
-  }
+  void _submit() {}
 }
