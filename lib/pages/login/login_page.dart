@@ -60,6 +60,7 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
                 height: 24,
               ),
               LoginCheckbox(
+                initialValue: true,
                 validator: checkboxValidator,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                   onChanged: (value) {

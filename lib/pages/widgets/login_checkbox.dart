@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 class LoginCheckbox extends FormField<bool> {
   LoginCheckbox({
     Key? key,
+    bool? initialValue,
     AutovalidateMode? autovalidateMode,
     String? Function(bool?)? validator,
     required void Function(bool value) onChanged,
   }) : super(
           key: key,
           validator: validator,
+          initialValue: initialValue,
           autovalidateMode: autovalidateMode,
           builder: (state) {
             return Column(
