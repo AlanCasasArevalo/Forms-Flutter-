@@ -18,7 +18,6 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
   Widget build(BuildContext context) {
     bool allowSubmit =
         emailValidator(_email) == null && passwordValidator(_password) == null;
-    bool _checked = false;
 
     return Form(
       child: Scaffold(
@@ -55,15 +54,6 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
               SizedBox(
                 height: 24,
               ),
-              LoginCheckbox(
-                initialValue: true,
-                validator: checkboxValidator,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                  onChanged: (value) {
-                setState(() {
-                  _checked = value;
-                });
-              }),
               Builder(
                 builder: (context) {
                   return MaterialButton(
