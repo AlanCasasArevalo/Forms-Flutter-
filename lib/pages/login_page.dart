@@ -13,8 +13,9 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
 
   @override
   Widget build(BuildContext context) {
-
-    bool allowSubmit = emailValidator(_email) == null &&  passwordValidator(_password) == null;
+    bool allowSubmit =
+        emailValidator(_email) == null && passwordValidator(_password) == null;
+    bool _checked = false;
 
     return Form(
       child: Scaffold(
@@ -55,6 +56,18 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
               ),
               SizedBox(
                 height: 24,
+              ),
+              CheckboxListTile(
+                title: Text('hola amundio'),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: _checked,
+                onChanged: (value) {
+                  if (value != null) {
+                    setState(() {
+                      _checked = value;
+                    });
+                  }
+                },
               ),
               ElevatedButton(
                 key: Key('login-page-Registrate-Button'),
