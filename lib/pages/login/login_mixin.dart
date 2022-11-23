@@ -15,8 +15,9 @@ mixin LoginMixin on State<LoginPage> {
     }
   }
 
-  String? passwordValidator(password) {
+  String? passwordValidator(String? password) {
     password ??= '';
+    password = password.replaceAll(' ', '');
     if (password.length > 7) {
       return null;
     } else {
