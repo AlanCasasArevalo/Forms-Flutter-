@@ -39,17 +39,22 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
               SizedBox(
                 height: 24,
               ),
-              LoginTextField(
-                textInputAction: TextInputAction.next,
-                label: 'password',
-                onChanged: (passwordChanged) {
-                  setState(() {
-                    _password = passwordChanged.replaceAll(' ', '');
-                  });
-                },
-                obscureText: true,
-                decoration: InputDecoration(label: Text('Contraseña')),
-                validator: passwordValidator,
+              Builder(
+                builder: (context) {
+                  return LoginTextField(
+                    onSubmitted: (_) => _submit(context),
+                    textInputAction: TextInputAction.send,
+                    label: 'password',
+                    onChanged: (passwordChanged) {
+                      setState(() {
+                        _password = passwordChanged.replaceAll(' ', '');
+                      });
+                    },
+                    obscureText: true,
+                    decoration: InputDecoration(label: Text('Contraseña')),
+                    validator: passwordValidator,
+                  );
+                }
               ),
               SizedBox(
                 height: 24,
@@ -73,6 +78,6 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
   }
 
   void _submit(BuildContext context) {
-
+    print('✅');
   }
 }

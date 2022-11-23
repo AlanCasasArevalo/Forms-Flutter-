@@ -9,6 +9,7 @@ class LoginTextField extends FormField<String> {
     bool obscureText = false,
     TextInputType? keyboardType,
     InputDecoration? decoration,
+    void Function(String)? onSubmitted,
     required String label,
   }) : super(
           key: key,
@@ -22,6 +23,7 @@ class LoginTextField extends FormField<String> {
             return TextField(
               textInputAction: textInputAction,
               obscureText: obscureText,
+              onSubmitted: onSubmitted,
               keyboardType: keyboardType,
               onChanged: (text) {
                 state.didChange(text);
