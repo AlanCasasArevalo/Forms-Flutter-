@@ -1,4 +1,7 @@
-mixin LoginMixin {
+import 'package:flutter/material.dart';
+import 'package:forms/pages/login_page.dart';
+
+mixin LoginMixin on State<LoginPage> {
   String? emailValidator(String? email) {
     email ??= '';
     final isEmailValid = RegExp(
