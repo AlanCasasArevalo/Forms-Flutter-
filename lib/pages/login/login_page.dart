@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:forms/pages/widgets/login_checkbox.dart';
 
+import '../widgets/login_text_field.dart';
 import 'login_mixin.dart';
 
 class LoginPage extends StatefulWidget {
@@ -25,28 +26,21 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
           child: ListView(
             padding: EdgeInsets.all(16),
             children: [
-              TextFormField(
-                key: Key('login-page-email'),
-                // Con este metodo lo que hacemos es que cada vez que el usuario no pase las validaciones puestas en el validator,
-                // y las corrija se muestre u oculte el mensaje de error del textfield, pero solo cuando el usuario interacture con el textfield
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                // Un valor por defecto para dar mas feedback al usuario final
-                initialValue: 'test@test.com',
+              LoginTextField(
+                label: 'email',
                 onChanged: (emailChanged) {
                   setState(() {
                     _email = emailChanged.trim();
                   });
                 },
                 keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(label: Text('Email')),
                 validator: emailValidator,
               ),
               SizedBox(
                 height: 24,
               ),
-              TextFormField(
-                key: Key('login-page-password'),
-                autovalidateMode: AutovalidateMode.onUserInteraction,
+              LoginTextField(
+                label: 'password',
                 onChanged: (passwordChanged) {
                   setState(() {
                     _password = passwordChanged.replaceAll(' ', '');
