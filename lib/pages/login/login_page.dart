@@ -28,6 +28,7 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
             children: [
               LoginTextField(
                 label: 'email',
+                textInputAction: TextInputAction.next,
                 onChanged: (emailChanged) {
                   setState(() {
                     _email = emailChanged.trim();
@@ -40,6 +41,7 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
                 height: 24,
               ),
               LoginTextField(
+                textInputAction: TextInputAction.next,
                 label: 'password',
                 onChanged: (passwordChanged) {
                   setState(() {
