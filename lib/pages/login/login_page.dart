@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:forms/pages/login_mixin.dart';
+import 'package:forms/pages/widgets/login_checkbox.dart';
+
+import 'login_mixin.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -57,22 +59,24 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
               SizedBox(
                 height: 24,
               ),
-              CheckboxListTile(
-                title: Text('hola amundio'),
-                controlAffinity: ListTileControlAffinity.leading,
-                value: _checked,
-                onChanged: (value) {
-                  if (value != null) {
-                    setState(() {
-                      _checked = value;
-                    });
-                  }
-                },
-              ),
-              ElevatedButton(
-                key: Key('login-page-Registrate-Button'),
-                onPressed: allowSubmit ? _submit : null,
-                child: Text('Registrate'),
+              LoginCheckbox(
+                validator: checkboxValidator,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                  onChanged: (value) {
+                setState(() {
+                  _checked = value;
+                });
+              }),
+              Builder(
+                builder: (context) {
+                  return MaterialButton(
+                    color: Colors.blue.withOpacity(allowSubmit ? 1 : 0.2),
+                    key: Key('login-page-Registrate-Button'),
+                    onPressed: () => _submit(context),
+                    elevation: 0,
+                    child: Text('Registrate'),
+                  );
+                }
               )
             ],
           ),
@@ -81,5 +85,7 @@ class _LoginPageState extends State<LoginPage> with LoginMixin {
     );
   }
 
-  void _submit() {}
+  void _submit(BuildContext context) {
+
+  }
 }

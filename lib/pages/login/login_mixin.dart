@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forms/pages/login_page.dart';
+
+import 'login_page.dart';
 
 mixin LoginMixin on State<LoginPage> {
   String? emailValidator(String? email) {
@@ -20,6 +21,14 @@ mixin LoginMixin on State<LoginPage> {
       return null;
     } else {
       return 'Contraseña invalida';
+    }
+  }
+
+  String? checkboxValidator(bool? value) {
+    if(value == true) {
+      return null;
+    } else {
+      return 'Checkbox required';
     }
   }
 }
