@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forms/pages/login_mixin.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key? key}) : super(key: key);
@@ -7,34 +8,13 @@ class LoginPage extends StatefulWidget {
   State<StatefulWidget> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> with LoginMixin {
   String _email = '', _password = '';
-
-  String? _emailValidator(String? email) {
-    email ??= '';
-    final isEmailValid = RegExp(
-            r"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-        .hasMatch(email);
-    if (isEmailValid) {
-      return null;
-    } else {
-      return 'Email invalido';
-    }
-  }
-
-  String? _passwordValidator(password) {
-    password ??= '';
-    if (password.length > 7) {
-      return null;
-    } else {
-      return 'Contraseña invalida';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
 
-    bool allowSubmit = _emailValidator(_email) == null &&  _passwordValidator(_password) == null;
+    bool allowSubmit = emailValidator(_email) == null &&  passwordValidator(_password) == null;
 
     return Form(
       child: Scaffold(
@@ -56,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(label: Text('Email')),
-                validator: _emailValidator,
+                validator: emailValidator,
               ),
               SizedBox(
                 height: 24,
@@ -71,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                 },
                 obscureText: true,
                 decoration: InputDecoration(label: Text('Contraseña')),
-                validator: _passwordValidator,
+                validator: passwordValidator,
               ),
               SizedBox(
                 height: 24,
